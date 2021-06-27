@@ -1,18 +1,8 @@
 import React, { Component } from "react";
-import "./App.scss";
-// Handle Routes
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Router, Route, Switch } from "react-router-dom";
-// import { Router } from 'react-router';
-
-// import logo from './logo.svg';
 import "./App.css";
-// import MainContent from './components/MainContent';
 import Footer from "./components/footer";
 // Import Components
-// import Navbar from './components/Navbar';
 import Navbar from "./components/navbar/index";
 import history from "./history";
 // Import Pages

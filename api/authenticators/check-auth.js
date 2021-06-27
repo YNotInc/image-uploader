@@ -19,38 +19,29 @@ module.exports = async (req, res, next) => {
   console.log("In check-auth.js");
   console.log("REQ Path:", req.path);
   console.log("REQ BaseURL:", req.baseUrl);
-  console.log("REQ Route:", req.route);
+  // console.log("REQ Route:", req.route);
   // if there is a valid refresh token, reset credentials
   if (req.baseUrl === "/login/refresh") {
     validDecodedRefreshToken = decodedToken(refresh_token_header);
-    console.log("validDecodedRefreshToken:", validDecodedRefreshToken);
+    // console.log("validDecodedRefreshToken:", validDecodedRefreshToken);
 
     const refreshTokenExpired = isTokenExpired(validDecodedRefreshToken);
-    console.log("isRefreshTokenExpired:", refreshTokenExpired);
+    // console.log("isRefreshTokenExpired:", refreshTokenExpired);
     // if refreshTokenExpired throw error
     refreshTokenExpired ? throwAuthError(res) : "";
   }
   // Perform normal checks
   else {
     try {
-      // NOTE: THE FOLLOWING DOESN"T WORK
-      /******************************/
-      //Step1: Check for Error: if Refresh_token is norefresh then thow error:
-      // if (refresh_token_header === "norefresh") {
-      //   console.log("check-auth: refreshToken and accessToken Invalid");
-      //   // throw error?
-      //   throwAuthError(res);
-      // }
-      /******************************/
       // Step2: Check if Tokens are unmanipulated
 
       const validDecodedAccessToken = decodedToken(access_token_header);
-      console.log("validDecodedAccessToken:", validDecodedAccessToken);
+      // console.log("validDecodedAccessToken:", validDecodedAccessToken);
 
       if (!validDecodedAccessToken) {
         // Step3: check if refreshToken is unmanipulated
         validDecodedRefreshToken = decodedToken(refresh_token_header);
-        console.log("validDecodedRefreshToken:", validDecodedRefreshToken);
+        // console.log("validDecodedRefreshToken:", validDecodedRefreshToken);
       }
       //if accessToken valid and refreshToken=norefresh, this indicates the access token is still valid, so no refresh is required.
       else if (
