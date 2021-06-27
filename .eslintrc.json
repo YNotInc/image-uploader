@@ -1,0 +1,16 @@
+{
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "prettier/prettier": 
+    ["error", 
+      { 
+        "endOfLine": "auto", 
+        "tabWidth": 2
+      }
+    ]
+  }
+}
