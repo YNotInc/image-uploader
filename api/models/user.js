@@ -10,46 +10,44 @@ const { token } = require("morgan");
 //table names should be lowercase.  The model name will be referenced by whatever is passed in "user"
 
 module.exports = function (sequelize, DataTypes) {
-    var User = sequelize.define("user", {
-        email: {
-            type: DataTypes.STRING,
-            unique: false,
-            // Require type to be present
-            allowNull: false
-        },
-        password: {
-            type: DataTypes.STRING,
-            // Require pw to be present
-            allowNull: false
-        }, 
-        role: {
-            type: DataTypes.STRING,
-            unique: false, 
-            // Require role to be present
-            allowNull: false,
-            defaultValue: 'user'
-        },
-        
+  var User = sequelize.define("user", {
+    email: {
+      type: DataTypes.STRING,
+      unique: false,
+      // Require type to be present
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      // Require pw to be present
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      unique: false,
+      // Require role to be present
+      allowNull: false,
+      defaultValue: "user",
+    },
+  });
+  // ,
+  // {
+  //     //Model Users will be the same as the model name instead of being pluralized
+  //     freezeUsers: true
+  // });
+  User.associate = function (models) {
+    // Each Token should belong to a user
+    // A Post can't be created without an Author due to the foreign key constraint
+    User.hasOne(models.token, {
+      foreignKey: {
+        name: "userId", //step 1
+        allowNull: true,
+        defaultValue: null,
+        onDelete: "cascade",
+        hooks: true,
+      },
     });
-    // ,
-    // {
-    //     //Model Users will be the same as the model name instead of being pluralized
-    //     freezeUsers: true  
-    // });
-    User.associate = function(models) {
-        // Each Token should belong to a user
-        // A Post can't be created without an Author due to the foreign key constraint
-        User.hasOne(models.token, {
-          foreignKey: {
-            name: 'userId',//step 1
-            allowNull: true,
-            defaultValue: null, 
-            onDelete: "cascade",
-            hooks: true
-          }
-        });
-      };
+  };
 
-
-    return User;
+  return User;
 };

@@ -1,7 +1,7 @@
-// Import product routes. 
-const router = require("express").Router(); 
-const productRoutes = require('./products');
-const userRoutes = require('./user');
+// Import product routes.
+const router = require("express").Router();
+const productRoutes = require("./products");
+const userRoutes = require("./user");
 
 /************************************
  * RouteHandler 2: Product routes
@@ -11,7 +11,7 @@ const userRoutes = require('./user');
  * be handled by the second argument "productRoutes".
  * *******************************************/
 // Addroutes, both api and view
-router.use('/api/products', productRoutes);
-router.use('/api/user', userRoutes);
+router.use("/api/products", productRoutes);
+router.use("/api/user", userRoutes);
 
 module.exports = router;

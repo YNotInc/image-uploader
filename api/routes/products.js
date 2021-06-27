@@ -1,16 +1,15 @@
 // Handles product related routes
 
-const express = require('express');
+const express = require("express");
 
 // Conveniently handles routes with different endpoints
 const router = express.Router();
 
-
 // JWT Middleware to Authenticate routes:
-const checkAuth = require('../authenticators/check-auth');
+const checkAuth = require("../authenticators/check-auth");
 
 // Import ProductsController
-const ProductsController = require('../controllers/products');
+const ProductsController = require("../controllers/products");
 
 /*************************************************
  * products': Second argument is a handler function
@@ -18,7 +17,7 @@ const ProductsController = require('../controllers/products');
  * API URL: 'api/products/'
  * Access: Visitor/User/Admin - No Check Auth req
  *************************************************/
-router.get('/', ProductsController.products_get_all);
+router.get("/", ProductsController.products_get_all);
 
 // Post request body:
 // {
@@ -32,14 +31,22 @@ router.get('/', ProductsController.products_get_all);
  * API URL: 'api/products/product/insert/'
  * Access: User/Admin - Check Auth req
  ***********************************/
-router.post('/product/insert/', checkAuth, ProductsController.products_insert_product);
+router.post(
+  "/product/insert/",
+  checkAuth,
+  ProductsController.products_insert_product
+);
 
 /*******************************
  * Purpose: Insert an image to cloudinary
  * API URL: 'api/products/cloudinary/insert/'
  * Access: Admin - Check Auth req
  *******************************/
-router.post('/cloudinary/insert/', checkAuth, ProductsController.cb_image_upload);
+router.post(
+  "/cloudinary/insert/",
+  checkAuth,
+  ProductsController.cb_image_upload
+);
 
 /*******************************************
  * Purpose: Update existing product
@@ -48,7 +55,11 @@ router.post('/cloudinary/insert/', checkAuth, ProductsController.cb_image_upload
  * API URL: 'api/products/product/update/:productId
  * Access: Admin - Check Auth req
  *********************************************/
- router.patch('/product/update/:productId', checkAuth, ProductsController.products_update_product);
+router.patch(
+  "/product/update/:productId",
+  checkAuth,
+  ProductsController.products_update_product
+);
 
 /******************************
  * Purpose: Get a product
@@ -57,13 +68,21 @@ router.post('/cloudinary/insert/', checkAuth, ProductsController.cb_image_upload
  * API URL: 'api/products/product/:productId'
  * Access: User/Admin - Check Auth req
  *******************************/
-router.get('/product/:productId',checkAuth, ProductsController.products_get_product);
+router.get(
+  "/product/:productId",
+  checkAuth,
+  ProductsController.products_get_product
+);
 
 /*********************************
  * Purpose: Delete a product
  * API URL: 'api/products/product/delete/:productId
  * Access: Admin - Check Auth req
  **********************************/
-router.delete('/product/delete/:productId', checkAuth, ProductsController.products_delete_product);
+router.delete(
+  "/product/delete/:productId",
+  checkAuth,
+  ProductsController.products_delete_product
+);
 
 module.exports = router;
