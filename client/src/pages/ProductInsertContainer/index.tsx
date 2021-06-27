@@ -6,7 +6,7 @@ import { displayInputErrors, removeImgErrorDisplay, removeInputErrors } from "ut
 
 // Import Components
 import ProductInsertForm from "../../forms/product/insert";
-import credentialStore from '../../utils/credential-store';
+import { credentials as credentialStore } from '../../utils/credential-store';
 import { insertProduct, stageDBAction } from '../../utils/product-store';
 import * as imgHelper from './utils/helpers';
 import { insertCloudinary } from '../../utils/product-store';

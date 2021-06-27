@@ -1,8 +1,8 @@
-import tokenStore from './token-store';
+import { token as tokenStore } from './token-store';
 // import * as authenticationStore from "./authenticationStore";
 import * as auth from './authentication-store';
 
-export default {
+export let credentials = {
     // Pulls credentials from backend and stores in localstorage
     setLocalCredWNewTokens: async (
         refresh_token: string, refreshURL: string, authToken: string,

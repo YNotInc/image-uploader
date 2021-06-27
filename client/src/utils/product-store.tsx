@@ -1,4 +1,4 @@
-import API from './API';
+import { api as API } from './API';
 import ProductViewItem from "../components/products/list/item";
 import React from "react";
 

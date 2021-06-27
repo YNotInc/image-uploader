@@ -4,7 +4,7 @@ import { urlBtnUpdates } from "utils/url-btn-updates";
 import ProductsListItem from "../components/products/list/index";
 import UploadSpinner from '../components/upload-spinner';
 // Import Server-Side Utilities:
-import API from '../utils/API';
+import { api as API } from '../utils/API';
 //import utils
 import * as auth from '../utils/authentication-store';
 

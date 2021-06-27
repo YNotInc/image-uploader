@@ -6,7 +6,7 @@ import * as auth from '../utils/authentication-store';
 
 // Import Components
 import UpdateForm from "../forms/product/update";
-import credentialStore from '../utils/credential-store';
+import { credentials as credentialStore } from '../utils/credential-store';
 import { updateProduct, performDBAction } from '../utils/product-store';
 import { Moment } from "moment";
 import { urlBtnUpdates } from "utils/url-btn-updates";

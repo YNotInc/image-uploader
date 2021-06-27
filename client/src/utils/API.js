@@ -5,7 +5,7 @@ import axios from "axios";
  * API IS JUST FORWARDING THE HTTP REQUEST To Backend
  *****************************************************/
 // Create Export Hash
-export default {
+export let api = {
   register: async (data) => {
     /*************************************************************
      *  package and send the body to the endpoint

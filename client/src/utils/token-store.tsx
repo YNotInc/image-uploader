@@ -1,7 +1,7 @@
 // Import Server-Side Utilities:
-import API from './API';
+import { api as API } from './API';
 
-export default {
+export let token = {
     refresh: async (url:string, accessToken: string, refreshToken: string, email: string, expired:boolean) => {
         console.log('In REFRESHTOKENS:', refreshToken);
         /*************************************************************

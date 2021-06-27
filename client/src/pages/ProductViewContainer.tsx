@@ -9,7 +9,7 @@ import DeleteBtn from "components/buttons/delete-btn";
 import * as auth from '../utils/authentication-store';
 
 import { deleteProduct, getProductDetails, stageDBAction } from '../utils/product-store';
-import credentialStore from "utils/credential-store";
+import { credentials as credentialStore } from "utils/credential-store";
 
 class ProductViewContainer extends Component<ProductViewPropType> {
     // props!: ProductViewPropType;

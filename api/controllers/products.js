@@ -18,7 +18,7 @@ exports.products_get_all = async (req, res, next) => {
         let documents = await db.product.findAll({
             attributes: ['name', 'value', 'id', 'productImage']
         });
-        console.log("Products:", documents);
+        // console.log("Products:", documents);
         if (documents) {
             const response = {
                 count: documents.length,
@@ -85,7 +85,7 @@ exports.products_insert_product = async (req, res, next) => {
             // validate that data has been supplied
             if (key.value) {
                 insertProps[key.propName] = key.value;
-                console.log("PRODUCTS: KEY/VALUE:", key.propName, " = ", key.value);
+                // console.log("PRODUCTS: KEY/VALUE:", key.propName, " = ", key.value);
             }
         }
         console.log("insertProps.authToken:", insertProps.authToken);

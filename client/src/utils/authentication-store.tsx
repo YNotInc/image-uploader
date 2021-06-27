@@ -1,4 +1,4 @@
-import API from './API';
+import { api as API } from './API';
 import moment, { Moment } from 'moment';
 // Import Server-Side Utilities:
 
