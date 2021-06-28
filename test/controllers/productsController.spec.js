@@ -35,6 +35,7 @@ describe("productsController", () => {
       json: sinon.spy(),
       // status: sinon.stub().returns({json: sinon.spy()}),
       status: sinon.stub().returns({ json: statusJsonSpy }),
+      set: sinon.stub().returns({ json: statusJsonSpy }),
     };
     it("should return a model if found", async () => {
       // TODO: Write the unit test.
@@ -52,6 +53,21 @@ describe("productsController", () => {
           },
         },
       ];
+
+      var dataRes = {
+        count: 1,
+        products: [
+          {
+            name: "BS66",
+            value: "66.00",
+            _id: "8",
+            productImage:
+              "http://res.cloudinary.com/dcpxcocju/image/upload/v1618802379/ictwe13cef1r6aydrz1s.png",
+            request: { type: "GET", url: "http://localhost:3000/products/" },
+          },
+        ],
+      };
+
       //Stub the function our method will call
       sequelize.Model.findAll = sandbox.stub().returns(Promise.resolve(data));
 
@@ -63,7 +79,8 @@ describe("productsController", () => {
       // Assert
       // Is res.json called and passed the object from the Promise.resolve above:
       // expect(res.json).to.have.been.calledWith(data);
-      expect(res.status).to.have.been.calledWith(200);
+      expect(statusJsonSpy).to.have.been.calledWith(dataRes);
+      // expect(res.status).to.have.been.calledWith(200);
     });
 
     it("should return an error message if an error occurs", async () => {
@@ -91,7 +108,7 @@ describe("productsController", () => {
       //Act
       await productsController.products_get_all(req, res);
 
-      await console.log("---");
+      // await console.log("---");
       // Assert
       expect(res.status).to.have.been.calledWith(500);
       expect(statusJsonSpy).to.have.been.calledWith(errorObj);
