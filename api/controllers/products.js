@@ -12,7 +12,7 @@ cloudinary.config({
 
 exports.products_get_all = async (req, res, next) => {
   // Product.find()
-  let documents = await db.product
+  await db.product
     .findAll({
       attributes: ["name", "value", "id", "productImage"],
     })
@@ -33,7 +33,10 @@ exports.products_get_all = async (req, res, next) => {
           };
         }),
       }; //response
-      // console.log("Response:", response);
+      res.set({
+        "Content-Type": "application/json",
+      });
+      console.log("Response:", JSON.stringify(response));
       res.status(200).json(response);
     })
     .catch((err) => {
