@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, useRef } from "react";
+import { ChangeEvent, Component, useRef } from "react";
 import {
   MDBNavbar,
   MDBNavbarNav,
@@ -16,10 +16,10 @@ import Can from "../can";
 import { navbarOptions } from "./btn-data/index";
 import "./btn-data/style.css";
 import { urlParser } from "../../utils/url-parser";
-import { string } from "prop-types";
-import { RefObject } from "react";
-import { createRef } from "react";
-import { isTemplateExpression } from "typescript";
+// import { string } from "prop-types";
+// import { RefObject } from "react";
+// import { createRef } from "react";
+// import { isTemplateExpression } from "typescript";
 import UserBtn from './buttons/user-btn';
 import AdminBtn from "./buttons/admin-btn";
 import LoginBtn from "./buttons/login-btn";
@@ -156,7 +156,7 @@ class NavbarPage extends Component<NavbarPagePropType> {
     console.log("PropsName: ", this.props.name);
 
     let loggedOut = this.props.loggedOut;
-    let role = this.props.role;
+    // let role = this.props.role;
     return (
       <MDBNavbar
         color="default-color"
@@ -168,7 +168,7 @@ class NavbarPage extends Component<NavbarPagePropType> {
         {/* <!-- Navbar brand --> */}
         <a
           className="navbar-brand"
-          href="#"
+          href="#!"
         >
           {"Brand"}
         </a>
