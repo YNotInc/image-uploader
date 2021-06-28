@@ -4,7 +4,7 @@ import Can from "components/can";
 
 function transitionImg(props: TransitionImgPropType) {
   console.log("IMG Props:", props);
-  const { name, value } = props.to.state;
+  const { name } = props.to.state;
   let loggedOut = props.loggedOut;
   let role = props.userRole;
   const imgWithLink = (<Link
@@ -17,7 +17,7 @@ function transitionImg(props: TransitionImgPropType) {
     />
   </Link>);
 
-  const imgWithoutLink = (<a className="view overlay zoom rounded" href="#"><img
+  const imgWithoutLink = (<a className="view overlay zoom rounded" href="#!"><img
     className="card-img-top image-rules img-fluid"
     src={props.productImage}
     alt={`product ${props.id}`}
@@ -40,7 +40,7 @@ function transitionImg(props: TransitionImgPropType) {
                 {imgWithoutLink}
               </>}
           />
-          <a>
+          <a href="#!">
             <div className="mask rgba-white-slight"></div>
           </a>
           {/* Card Content */}

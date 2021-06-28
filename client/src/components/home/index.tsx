@@ -16,12 +16,12 @@ let Home = function() {
                 <div className="col-md-12 mb-3">
                   <div className="intro-info-content text-center">
                     <h1 className="display-3 mb-5 wow fadeInDown" data-wow-delay="0.3s">NEW
-                      <a className="indigo-text font-weight-bold">COLLECTION</a>
+                      <a className="indigo-text font-weight-bold" href="#!">COLLECTION</a>
                     </h1>
                     <h5 className="text-uppercase mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">Free
                       delivery & special prices</h5>
-                    <a className="btn btn-outline-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s">Shop</a>
-                    <a className="btn btn-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s">Lookbook</a>
+                    <a className="btn btn-outline-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s" href="#!">Shop</a>
+                    <a className="btn btn-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s" href="#!">Lookbook</a>
                   </div>
                 </div>
               </div>
