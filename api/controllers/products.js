@@ -12,15 +12,12 @@ cloudinary.config({
 
 exports.products_get_all = async (req, res, next) => {
   // Product.find()
-  try {
     let documents = await db.product.findAll({
       attributes: ["name", "value", "id", "productImage"],
-    });
-    // console.log("Products:", documents);
-    if (documents) {
+    }).then((docResults) => {
       const response = {
-        count: documents.length,
-        products: documents.map((document) => {
+        count: docResults.length,
+        products: docResults.map((document) => {
           return {
             name: document.dataValues.name,
             value: document.dataValues.value,
@@ -34,23 +31,13 @@ exports.products_get_all = async (req, res, next) => {
           };
         }),
       }; //response
-      res.set({
-        "Content-Type": "application/json",
-      });
-
-      //Correct:
-      /***********/
+      // console.log("Response:", response);
       res.status(200).json(response);
-
-      console.log("STATUS:", res.statusCode);
-      console.log("CONTENT:", res.get("Content-Type"));
-    } //if
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      error: err,
+    }).catch((err) =>{
+      res.status(500).json({
+            error: err,
+          });
     });
-  }
 };
 
 // CLOUDINARY UPLOAD:
