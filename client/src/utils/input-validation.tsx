@@ -1,5 +1,3 @@
-import { ElementRef } from "react";
-
 function correctInput(id: string) {
 
   const target = document.getElementById(id)! as HTMLInputElement;
