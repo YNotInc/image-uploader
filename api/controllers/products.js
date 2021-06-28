@@ -12,9 +12,11 @@ cloudinary.config({
 
 exports.products_get_all = async (req, res, next) => {
   // Product.find()
-    let documents = await db.product.findAll({
+  let documents = await db.product
+    .findAll({
       attributes: ["name", "value", "id", "productImage"],
-    }).then((docResults) => {
+    })
+    .then((docResults) => {
       const response = {
         count: docResults.length,
         products: docResults.map((document) => {
@@ -33,10 +35,11 @@ exports.products_get_all = async (req, res, next) => {
       }; //response
       // console.log("Response:", response);
       res.status(200).json(response);
-    }).catch((err) =>{
+    })
+    .catch((err) => {
       res.status(500).json({
-            error: err,
-          });
+        error: err,
+      });
     });
 };
 
