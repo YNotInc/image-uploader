@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Component, useRef } from "react";
+import { ChangeEvent, Component } from "react";
 import {
   MDBNavbar,
   MDBNavbarNav,
@@ -16,10 +16,6 @@ import Can from "../can";
 import { navbarOptions } from "./btn-data/index";
 import "./btn-data/style.css";
 import { urlParser } from "../../utils/url-parser";
-import { string } from "prop-types";
-import { RefObject } from "react";
-import { createRef } from "react";
-import { isTemplateExpression } from "typescript";
 import UserBtn from './buttons/user-btn';
 import AdminBtn from "./buttons/admin-btn";
 import LoginBtn from "./buttons/login-btn";
@@ -53,14 +49,12 @@ class NavbarPage extends Component<NavbarPagePropType> {
 
   handleChangeActive(event: ChangeEvent<HTMLInputElement>, button: UserItemsType | AdminItemType | LoginItemType, activeIndex: number) {
     this.props.handlePageClick(event);
-    // this.setState({ activeIndex: newActiveIndex });
     const curBtnName = event.target.name;
     const hmOrProdBtnSelected = curBtnName === 'home' || curBtnName === 'products';
     console.log("BUTTONEVENT:", event.target.name);
     console.log("ActiveIndex:", activeIndex);
     console.log("BUTTON:", button);
     console.log("BUTTONNAME", button.name);
-    // const activeName = button.name;
     //urlParser is launching before page settled
     console.log("PageName:", urlParser());
 
@@ -156,7 +150,6 @@ class NavbarPage extends Component<NavbarPagePropType> {
     console.log("PropsName: ", this.props.name);
 
     let loggedOut = this.props.loggedOut;
-    let role = this.props.role;
     return (
       <MDBNavbar
         color="default-color"
@@ -168,7 +161,7 @@ class NavbarPage extends Component<NavbarPagePropType> {
         {/* <!-- Navbar brand --> */}
         <a
           className="navbar-brand"
-          href="#"
+          href="#!"
         >
           {"Brand"}
         </a>

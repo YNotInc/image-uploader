@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBBtn, MDBCol, MDBInputGroup, MDBRow } from "mdbreact";
+import { MDBCol, MDBRow } from "mdbreact";
 import { ImageSelector } from "../image-selector";
 import './styles.css';
 

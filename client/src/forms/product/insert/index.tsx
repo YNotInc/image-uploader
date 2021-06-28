@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, FC } from 'react';
+import { FC } from 'react';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import { ImageUploader } from '../../../components/image-uploader';
 import "./styles.css";

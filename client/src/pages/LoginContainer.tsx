@@ -11,11 +11,6 @@ import { api as API } from '../utils/API';
 // Import Components
 import LoginForm from "../forms/login";
 
-interface PropTypes {
-    getRole: () => void,
-    history: any
-}
-
 class LoginContainer extends Component<LoginPropType, LoginStateType> {
     state!: LoginStateType;
     constructor(props: LoginPropType) {
@@ -106,7 +101,7 @@ class LoginContainer extends Component<LoginPropType, LoginStateType> {
                         /***********************************
                          Get user role and set on App Router
                          ***********************************/
-                        let role = await this.props.getRole();
+                        await this.props.getRole();
 
 
                         // this.setState({toProducts: true});

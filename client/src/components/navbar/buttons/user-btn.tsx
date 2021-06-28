@@ -1,6 +1,5 @@
 import {
-  MDBNavItem, MDBDropdown,
-  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBNavLink
+  MDBNavItem, MDBNavLink
 } from "mdbreact"; 
 import Can from "../../can";
 import "./styles.css";
