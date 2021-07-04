@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useEffect} from "react";
-// import { useHistory } from "react-router";
+import { useHistory } from "react-router";
 
 import { urlBtnUpdates } from "utils/url-btn-updates";
 
@@ -18,7 +18,8 @@ import LoginForm from "../forms/login";
  * @param props.getRole, props.history 
  * @returns  
  */
-let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => {
+let LoginContainer = ({getRole}: {getRole: Function }) => {
+    let history = useHistory();
     const initState: LoginStateType = {
         email: '',
         password: '',
@@ -31,7 +32,6 @@ let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => 
         authToken: '',
         token: ''
     };
-    // const history = useHistory();
 
     const [state, setState] = useState(initState);
     // EventHandlers: two way bind email and password state variable.
@@ -65,7 +65,6 @@ let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => 
             email: state.email,
             password: state.password
         };
-        console.log(`useEffect: onSubmit: ${onSubmit}`);
         if(onSubmit) {
             API.login(data)
             .then(async (res: any) => {
@@ -83,8 +82,6 @@ let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => 
                         email
                     }) as unknown as Pick<LoginStateType, keyof LoginStateType>);
 
-                    console.log("RES:", res);
-
                     // Step 2 fo 2: Set Local Storage variables from respons
                     await authenticationStore.setLocalStorage(
                         access_token,
@@ -99,7 +96,7 @@ let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => 
                     await getRole();
 
                     // Transition to the products route in App.js 
-                    history.push('/product');
+                    history.push('/products');
                 }//if
                 //reset onSubmit
                 setOnSubmit(false);
