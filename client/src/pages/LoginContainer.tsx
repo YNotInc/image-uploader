@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect} from "react";
+import React, { ChangeEvent, useState, useEffect} from "react";
 // import { useHistory } from "react-router";
 
 import { urlBtnUpdates } from "utils/url-btn-updates";
@@ -15,10 +15,9 @@ import LoginForm from "../forms/login";
 
 /**
  * Props login container - Update user authorization and authentication when login credentials are provided.
- * @param props 
+ * @param props.getRole, props.history 
  * @returns  
  */
-// let LoginContainer = (props: LoginPropType) => 
 let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => {
     const initState: LoginStateType = {
         email: '',
