@@ -54,13 +54,6 @@ let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => 
     } // changeHandler
 
     const [onSubmit, setOnSubmit] = useState(false);
-    // const clickHandler = (event: FormEvent<HTMLFormElement>) => {
-    //         event.preventDefault();
-    
-    //         console.log(`User Name: ${state.email}, Password: ${state.password}`);
-    //         console.log(`B4 setOnSubmit: ${onSubmit}`);setOnSubmit(true);
-    //         console.log(`After setOnSubmit: ${onSubmit}`);
-    // }
     
     // Fetches updated user credential when a valid email and password is submitted
     useEffect(() => {
