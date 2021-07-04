@@ -1,4 +1,5 @@
-import React, { Component, ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect} from "react";
+// import { useHistory } from "react-router";
 
 import { urlBtnUpdates } from "utils/url-btn-updates";
 
@@ -11,34 +12,31 @@ import { api as API } from '../utils/API';
 // Import Components
 import LoginForm from "../forms/login";
 
-class LoginContainer extends Component<LoginPropType, LoginStateType> {
-    state!: LoginStateType;
-    constructor(props: LoginPropType) {
-        super(props);
 
-        this.state = {
-            email: '',
-            password: '',
-            message: '',
-            access_token: '',
-            refresh_token: '',
-            expiration: '',
-            hasAccessTokenExpired: false,
-            isUserAuthorized: false,
-            authToken: '',
-            token: ''
-        };
+/**
+ * Props login container - Update user authorization and authentication when login credentials are provided.
+ * @param props 
+ * @returns  
+ */
+// let LoginContainer = (props: LoginPropType) => 
+let LoginContainer = ({getRole, history}: {getRole: Function, history: any}) => {
+    const initState: LoginStateType = {
+        email: '',
+        password: '',
+        message: '',
+        access_token: '',
+        refresh_token: '',
+        expiration: '',
+        hasAccessTokenExpired: false,
+        isUserAuthorized: false,
+        authToken: '',
+        token: ''
+    };
+    // const history = useHistory();
 
-        this.changeHandler = this.changeHandler.bind(this);
-        this.clickHandler = this.clickHandler.bind(this);
-    } // constructor
-
-    async componentDidMount() {
-        // Update navbar for address bar changes
-        urlBtnUpdates();
-    }
-
-    changeHandler(event: ChangeEvent<HTMLInputElement>): void {
+    const [state, setState] = useState(initState);
+    // EventHandlers: two way bind email and password state variable.
+    const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         // First disable default behavior
         event.preventDefault();
 
@@ -47,127 +45,97 @@ class LoginContainer extends Component<LoginPropType, LoginStateType> {
             value
         } = event.target;
         console.log("--NAME:", name);
-        // if (name && typeof value === 'string') 
-        // [name]: value
         // set name computed property to the name "email", "password" of the input element, where the value was entered in login form,and set the corresponding state property to the element's value{
-        if (Object.keys(this.state).includes(name)) {
-
-            this.setState({
+        if (Object.keys(state).includes(name)) {
+            setState((prevState) => ({
+                ...prevState,
                 [name]: value
-            } as unknown as Pick<LoginStateType, keyof LoginStateType>);  // setState
+            } as unknown as Pick<LoginStateType, keyof LoginStateType>));
         }
     } // changeHandler
 
-    /**
-     * Clicks handler handles login form submission events
-     * @param event 
-     */
-    async clickHandler(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
+    const [onSubmit, setOnSubmit] = useState(false);
+    // const clickHandler = (event: FormEvent<HTMLFormElement>) => {
+    //         event.preventDefault();
+    
+    //         console.log(`User Name: ${state.email}, Password: ${state.password}`);
+    //         console.log(`B4 setOnSubmit: ${onSubmit}`);setOnSubmit(true);
+    //         console.log(`After setOnSubmit: ${onSubmit}`);
+    // }
+    
+    // Fetches updated user credential when a valid email and password is submitted
+    useEffect(() => {
+         // Update navbar highlighting for address bar changes on first render or re-render
+         urlBtnUpdates();
 
-        console.log(`User Name: ${this.state.email}, Password: ${this.state.password}`);
-
-        // Package Data to be sent in the Post Request Body
+        // Package email and password data to be sent in the Post Request Body
         let data = {
-            email: this.state.email,
-            password: this.state.password
+            email: state.email,
+            password: state.password
         };
-        // Define Call to Server Side utils to post body to the backend server and set states, using login method:
-        let login = (data: DataType) => {
-            console.log('IN LOGIN CALL');
+        console.log(`useEffect: onSubmit: ${onSubmit}`);
+        if(onSubmit) {
             API.login(data)
-                .then(async (res: any) => {
-                    if (res) {
-                        // Step 1 of 2: Set state variables from response
-                        let { message, access_token, refresh_token, expiration, email } = res.data;
-                        this.setState(
-                            {
-                                access_token,
-                                expiration,
-                                refresh_token,
-                                message,
-                                email
-                            });
-                        console.log("RES:", res);
+            .then(async (res: any) => {
+                if (res) {
+                    // Step 1 of 2: Set state variables from response
+                    let { message, access_token, refresh_token, expiration, email } = res.data;
 
-                        // Step 2 fo 2: Set Local Storage variables from respons
-                        await authenticationStore.setLocalStorage(
-                            access_token,
-                            refresh_token,
-                            expiration,
-                            email,
-                            message);
+                    // Update login credentials on state object
+                    setState((prevState) => ({
+                        ...prevState,
+                        access_token,
+                        expiration,
+                        refresh_token,
+                        message,
+                        email
+                    }) as unknown as Pick<LoginStateType, keyof LoginStateType>);
 
-                        /***********************************
-                         Get user role and set on App Router
-                         ***********************************/
-                        await this.props.getRole();
+                    console.log("RES:", res);
 
+                    // Step 2 fo 2: Set Local Storage variables from respons
+                    await authenticationStore.setLocalStorage(
+                        access_token,
+                        refresh_token,
+                        expiration,
+                        email,
+                        message);
 
-                        // this.setState({toProducts: true});
-                        // push props to the products route in App.js 
-                        this.props.history.push('/products');
-                    }//if
-                })
-                .catch(async err => {
-                    console.log("LOGIN ERROR", err);
-                    this.setState(
-                        { message: err.message });
-                });
-        };
+                    /***********************************
+                     Get user role and set on App Router
+                     ***********************************/
+                    await getRole();
 
-        // Execute login
-        login(data);
+                    // Transition to the products route in App.js 
+                    history.push('/product');
+                }//if
+                //reset onSubmit
+                setOnSubmit(false);
+            })
+            .catch(async err => {
+                console.log("LOGIN ERROR", err);
+                // Update error message on state object
+                setState((prevState) => ({
+                    ...prevState,
+                    message: err.message
+                }) as unknown as Pick<LoginStateType, keyof LoginStateType>);
+            });
+        }
+        
+    // Run fetch when the email and pw is submitted
+    }, [history, getRole, state.email, state.password, onSubmit]);
 
-        // Reset state variables after submit
-        this.setState({
-            email: '',
-            password: '',
-        });
-    }
-
-    /**
-     * Sets state variables from LocalStorage
-     * @param access_token 
-     * @param refresh_token 
-     * @param expiration 
-     * @param email 
-     * @param message 
-     */
-    async setStateVariables(access_token: string, refresh_token: string, expiration: string, email: string, message: string) {
-        let authToken = "Bearer " + access_token;
-
-        console.log("Auth token", authToken);
-        this.setState({ authToken });
-
-        console.log("Refresh token", refresh_token);
-        this.setState({ refresh_token });
-
-        this.setState({ email });
-
-        let hasAccessTokenExpired = await authenticationStore.hasAccessTokenExpired();
-
-        console.log("Expired?", hasAccessTokenExpired);
-        this.setState({ hasAccessTokenExpired });
-
-        this.setState({ isUserAuthorized: true });
-
-        this.setState({ message });
-    }
-
-    render() {
-        return (
-            <React.Fragment>
-                <LoginForm
-                    changeHandler={this.changeHandler}
-                    clickHandler={this.clickHandler}
-                    email={this.state.email}
-                    password={this.state.password}
-                    message={this.state.message}
-                    token={this.state.token} />
-            </React.Fragment>
-        )
-    }
-} // class
+    return (
+        <>
+            <LoginForm
+                changeHandler={changeHandler}
+                clickHandler={()=>setOnSubmit(true)}
+                email={state.email}
+                password={state.password}
+                message={state.message}
+                token={state.token} />
+        </>
+    )
+} // function
 
 export default LoginContainer;
