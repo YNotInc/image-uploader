@@ -18,6 +18,7 @@
     "lint:fix": "eslint . --ext .js,.jsx --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:mocha": "mocha 'test/**/*.spec.js'",
+    "test:jest": "cd client && npm run test:jest",
     "coverage": "nyc npm run test:mocha"
   },
   "author": "Tony Lockhart",
