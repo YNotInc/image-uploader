@@ -18,6 +18,7 @@ let LoginForm = (props: LoginFormPropType) => {
                                     htmlFor={"formGroupEmail"}
                                     className={"form-control"}
                                     id={"formGroupEmail"}
+                                    testId={"login-email"}
                                     // placeholder={"email"}
                                     label={"Email"}
                                     name={"email"}
@@ -29,6 +30,7 @@ let LoginForm = (props: LoginFormPropType) => {
                                     htmlFor={"formGroupPassword"}
                                     className={"form-control"}
                                     id={"formGroupPassword"}
+                                    testId={"login-password"}
                                     // placeholder="password"
                                     name={"password"}
                                     label={"Password"}

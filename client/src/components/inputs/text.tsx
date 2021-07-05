@@ -16,6 +16,7 @@ let Text = (props: TextPropType) => {
             type="text"
             className={props.className}
             id={props.id}
+            data-testid={props.testId}
             placeholder={props.placeholder}
             name={props.name}
             value={props.value}
