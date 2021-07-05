@@ -519,6 +519,7 @@ interface ActionBtnPropType {
     name: string;
     value: string;
     changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+    testId: string;
   }
   /*********************************/
 

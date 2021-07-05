@@ -4,13 +4,13 @@ import { useHistory } from "react-router";
 import { urlBtnUpdates } from "utils/url-btn-updates";
 
 // Import module to get/set variables from/in the LocalStorage
-import * as authenticationStore from '../utils/authentication-store';
+import * as authenticationStore from '../../utils/authentication-store';
 
 // Import Server-Side Utilities:
-import { api as API } from '../utils/API';
+import { api as API } from '../../utils/API';
 
 // Import Components
-import LoginForm from "../forms/login";
+import LoginForm from "../../forms/login";
 
 
 /**
