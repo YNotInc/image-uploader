@@ -168,6 +168,7 @@ const ProductViewContainer = (props: ProductViewPropType) => {
             }
             // Call FetchProducts
             fetchProducts();
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [state.authToken, state.email, state.hasAccessTokenExpired, state.access_token, state.refresh_token, state.productItemComponent?.props.image]);
 
     const deleteClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
