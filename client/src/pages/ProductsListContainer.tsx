@@ -11,8 +11,6 @@ import * as auth from '../utils/authentication-store';
 class ProductsListContainer extends Component<ProductsPropType>{
 
     baseURL = '/api/products';
-
-    _productsListData: ProductDataType[];
     state: ProductListStateType;
     constructor(props: ProductsPropType) {
         super(props);
@@ -20,10 +18,8 @@ class ProductsListContainer extends Component<ProductsPropType>{
         /******************************************
                  STEP2a: SET Base URLs
         ******************************************/
-        this._productsListData = [];
         this.state = {
-            productsList: [],
-            productListData: [],
+            productsListData: [],
             access_token: '',
             authToken: '',
             refresh_token: '',
@@ -79,18 +75,16 @@ class ProductsListContainer extends Component<ProductsPropType>{
     }
 
     get productsListData(): ProductDataType[] {
-        return this._productsListData;
+        return this.state.productsListData;
     }
     /******************************
      * 1/8/19: setUser HERE
      ******************************/
     set productsListData(data) {
         auth.getLocalStorage().then((curCredentials: any) => { this.setState(curCredentials) });
-
         console.log("----Data", data);
-        this._productsListData = data;
 
-        this.setState({ productsListData: this._productsListData });
+        this.setState({ productsListData: data });
 
     } // setProductList
 
@@ -102,49 +96,21 @@ class ProductsListContainer extends Component<ProductsPropType>{
      * @returns  productList
      */
     get products() {
-        return this.productsListData?.map((product: ProductDataType) => {
-            console.log("ProductListContainer: Product:", product);
+        return this.productsListData?.map((productData: ProductDataType) => {
+            console.log("ProductListContainer: Product:", productData);
             return (
                 <ProductsListItem
                     role={this.state.role}
-                    key={product._id}
-                    id={product._id}
-                    name={product.name}
-                    value={product.value}
-                    productImage={product.productImage}
+                    key={productData._id}
+                    id={productData._id}
+                    name={productData.name}
+                    value={productData.value}
+                    productImage={productData.productImage}
                     loggedOut={this.props.loggedOut}
                 />
             )
         });
     }
-
-    // /**
-    //  * Filters click handler - Filters out the item clicked
-    //  * @param event 
-    //  */
-    // filterClickHandler(event: React.MouseEvent<HTMLButtonElement>) {
-    //     event.preventDefault();
-    //     const event_id = (event.target as HTMLButtonElement).id;
-    //     console.log('IN Delete PRODUCT CALL', event_id);
-
-    //     let filteredList: ProductDataType[] = this.productsListData.filter((product: ProductDataType) => {
-    //         return (product._id.toString() !== event_id.toString());
-    //     })
-    //         .map((product: ProductDataType) => {
-    //             let data = {
-    //                 name: product.name,
-    //                 value: product.value,
-    //                 productImage: product.productImage,
-    //                 _id: product._id,
-    //                 key: product._id,
-    //                 event: event
-    //             };
-    //             return data;
-    //         });
-
-    //     this.productsListData = filteredList;
-
-    // }
 
     /**
      * Renders products list container

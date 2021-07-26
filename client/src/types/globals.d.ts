@@ -50,8 +50,8 @@ declare global {
   }
 
   interface ProductListStateType {
-    productsList: ProductDataType[];
-    productListData: ProductDataType[];
+    // productsList: ProductDataType[];
+    productsListData: ProductDataType[];
     authToken: string;
     access_token: string;
     expiration: string;
@@ -66,15 +66,15 @@ declare global {
   }
 
   interface ProductListDataType {
-    name: string;
-    productImage: string;
-    request: {
+    name?: string;
+    productImage?: string;
+    request?: {
       type: string;
       url: string;
     };
-    value: string;
-    _id: string;
-    length: number;
+    value?: string;
+    _id?: string;
+    length?: number;
   }
 
   interface FilteredListType {
@@ -227,19 +227,21 @@ interface ActionBtnPropType {
     setRole: (role: string, isLoggedOut: boolean)=>void;
   }
   interface ProductViewStateType {
-    productsList: ProductDataType[];
-    productListData: ProductDataType[];
-    productItem: ProductViewItem;
-    baseUrl: string;
-    access_token: "";
-    authToken: "";
-    refresh_token: "";
-    expiration: "";
-    email: "";
-    hasAccessTokenExpired: false;
-    isUserAuthorized: true;
-    loading: false;
-    message: "";
+    productItemComponent: JSX.Element | null;
+    baseUrl?: string;
+    access_token: string;
+    authToken: string;
+    refresh_token: string;
+    expiration: string;
+    email: string;
+    hasAccessTokenExpired: boolean;
+    isUserAuthorized: boolean | undefined;
+    loading?: boolean;
+    message: string | undefined;
+    expired?: boolean;
+    // productsList?: ProductListDataType | undefined;
+    placeholderName?: string;
+    placeholderValue?: string;
   }
 
   /***********************/
@@ -310,7 +312,7 @@ interface ActionBtnPropType {
     role: string;
   }
   interface ProductUpdateStateType {
-    productItem: ProductViewItem,
+    productItemComponent: JSX.Element | null,
     productId: string;
     productName: string;
     productValue: string;

@@ -15,8 +15,6 @@ import { getProductDetails } from '../utils/product-store';
 class ProductUpdateContainer extends Component<ProductUpdatePropType> {
     refreshURL: string;
     baseURL: string;
-    _productItemComponent!: JSX.Element;
-
     state: ProductUpdateStateType;
     constructor(props: ProductUpdatePropType) {
         super(props);
@@ -26,7 +24,7 @@ class ProductUpdateContainer extends Component<ProductUpdatePropType> {
         this.refreshURL = '/user/login/refresh';
         this.baseURL = '/api/products/product/update/';
         this.state = {
-            productItem: {},
+            productItemComponent: null,
             productId: '',
             productName: '',
             productValue: '',
@@ -50,10 +48,7 @@ class ProductUpdateContainer extends Component<ProductUpdatePropType> {
      * Sets product item component
      */
     set productItemComponent(productItem: JSX.Element) {
-        this._productItemComponent = productItem;
-        // console.log("in get", this._productItemComponent);
-
-        this.setState({ productItem: this._productItemComponent });
+        this.setState({ productItemComponent: productItem });
         // console.log('productItemComponent', this.state.productItem);
     }
 
@@ -61,7 +56,7 @@ class ProductUpdateContainer extends Component<ProductUpdatePropType> {
      * Gets product item component
      */
     get productItemComponent() {
-        return this._productItemComponent;
+        return this.state.productItemComponent as JSX.Element;
     }
 
     async setStateVariables(access_token: string, refresh_token: string, expiration: Moment | null, email: string, message: string) {
