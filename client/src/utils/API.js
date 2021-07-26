@@ -101,7 +101,10 @@ export let api = {
   },
 
   refreshTokens: async (url, accessToken, refreshToken, email, expired) => {
+    console.log("API In URL: ", url);
+    console.log("API In AccessToken: ", accessToken);
     console.log("API In RefreshToken: ", refreshToken);
+    console.log("API In Email: ", email);
     if (url) {
       /*************************************************************
        *  package and send the body to the endpoint

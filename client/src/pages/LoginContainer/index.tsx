@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState, useEffect} from "react";
+
 import { useHistory } from "react-router";
 
 import { urlBtnUpdates } from "utils/url-btn-updates";
@@ -57,7 +58,7 @@ let LoginContainer = ({getRole}: {getRole: Function }) => {
     
     // Fetches updated user credential when a valid email and password is submitted
     useEffect(() => {
-         // Update navbar highlighting for address bar changes on first render or re-render
+         // Update navbar highlighting for address bar changes on first render or re-render.  Normmaly placed in componentDidMount
          urlBtnUpdates();
 
         // Package email and password data to be sent in the Post Request Body

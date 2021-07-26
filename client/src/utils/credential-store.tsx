@@ -5,8 +5,11 @@ import * as auth from './authentication-store';
 export let credentials = {
     // Pulls credentials from backend and stores in localstorage
     setLocalCredWNewTokens: async (
-        refresh_token: string, refreshURL: string, authToken: string,
-        email: string, hasAccessTokenExpired: boolean) => {
+        refresh_token: string, 
+        refreshURL: string, 
+        authToken: string,
+        email: string, 
+        hasAccessTokenExpired: boolean) => {
         console.log("ProductListContainer refresh-token: ", refresh_token);
 
         /***************************************
@@ -82,7 +85,7 @@ export let credentials = {
     getEvaluatedCredentials: (
         curCredentials: CurrentCredentialType) => {
         let authToken = "Bearer " + curCredentials.access_token;
-
+        console.log("In getEval:", authToken);
         let hasAccessTokenExpired = auth.hasAccessTokenExpired();
 
         const credentials = {
