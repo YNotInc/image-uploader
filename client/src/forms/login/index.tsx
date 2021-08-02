@@ -7,7 +7,7 @@ let LoginForm = (props: LoginFormPropType) => {
             <MDBContainer>
                 <MDBRow>
                     <MDBCol size="12" middle={true}>
-                        <form>
+                        <form onSubmit={props.clickHandler}>
                             {/* <div className="container"> */}
                             <h1 className="mt-5">Login Form</h1>
                             <br />
@@ -20,7 +20,7 @@ let LoginForm = (props: LoginFormPropType) => {
                                     id={"formGroupEmail"}
                                     testId={"login-email"}
                                     // placeholder={"email"}
-                                    label={"Email"}
+                                    label="Email"
                                     name={"email"}
                                     value={props.email}
                                     changeHandler={props.changeHandler}
@@ -43,8 +43,8 @@ let LoginForm = (props: LoginFormPropType) => {
                                     <MDBCol>
                                         <label htmlFor="formGroupPassword" />
                                         <MDBBtn
+                                            type="submit"
                                             className={"mx-0"} color="blue-grey"
-                                            onClick={props.clickHandler}
                                         >
                                             Submit
                                         </MDBBtn>

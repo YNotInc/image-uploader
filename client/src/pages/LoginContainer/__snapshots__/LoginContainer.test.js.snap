@@ -28,9 +28,12 @@ exports[`LoginContainer matches snapshot 1`] = `
             <div
               class="form-group"
             >
-              <label
-                for="Email"
-              />
+              <div
+                class="row"
+                data-test="row"
+              >
+                <br />
+              </div>
               <div
                 class="row"
                 data-test="row"
@@ -39,13 +42,19 @@ exports[`LoginContainer matches snapshot 1`] = `
                   class="col-auto"
                   data-test="col"
                 >
-                  Email
+                  <label
+                    for="formGroupEmail"
+                    id="formGroupEmail"
+                  >
+                    Email
+                  </label>
                 </div>
                 <div
                   class="col"
                   data-test="col"
                 >
                   <input
+                    aria-labelledby="formGroupEmail"
                     class="form-control"
                     data-testid="login-email"
                     id="formGroupEmail"
@@ -55,9 +64,12 @@ exports[`LoginContainer matches snapshot 1`] = `
                   />
                 </div>
               </div>
-              <label
-                for="Password"
-              />
+              <div
+                class="row"
+                data-test="row"
+              >
+                <br />
+              </div>
               <div
                 class="row"
                 data-test="row"
@@ -66,13 +78,19 @@ exports[`LoginContainer matches snapshot 1`] = `
                   class="col-auto"
                   data-test="col"
                 >
-                  Password
+                  <label
+                    for="formGroupPassword"
+                    id="formGroupPassword"
+                  >
+                    Password
+                  </label>
                 </div>
                 <div
                   class="col"
                   data-test="col"
                 >
                   <input
+                    aria-labelledby="formGroupPassword"
                     class="form-control"
                     data-testid="login-password"
                     id="formGroupPassword"

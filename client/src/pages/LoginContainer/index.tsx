@@ -56,6 +56,11 @@ let LoginContainer = ({getRole}: {getRole: Function }) => {
 
     const [onSubmit, setOnSubmit] = useState(false);
     
+    // clickHander
+    const clickHandler = (e: Event) => {
+        e.preventDefault();
+        setOnSubmit(true);
+    }
     // Fetches updated user credential when a valid email and password is submitted
     useEffect(() => {
          // Update navbar highlighting for address bar changes on first render or re-render.  Normmaly placed in componentDidMount
@@ -113,13 +118,14 @@ let LoginContainer = ({getRole}: {getRole: Function }) => {
         }
         
     // Run fetch when the email and pw is submitted
-    }, [history, getRole, state.email, state.password, onSubmit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [onSubmit]);
 
     return (
         <>
             <LoginForm
                 changeHandler={changeHandler}
-                clickHandler={()=>setOnSubmit(true)}
+                clickHandler={(e)=>clickHandler(e)}
                 email={state.email}
                 password={state.password}
                 message={state.message}
