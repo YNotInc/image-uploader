@@ -115,7 +115,7 @@ exports[`LoginContainer matches snapshot 1`] = `
                   <button
                     class="btn-blue-grey btn Ripple-parent mx-0"
                     data-test="button"
-                    type="button"
+                    type="submit"
                   >
                     Submit
                     <div
