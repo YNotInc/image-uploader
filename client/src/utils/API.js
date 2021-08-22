@@ -26,11 +26,7 @@ export let api = {
     /*************************************************************
      *  package and send the body to the endpoint
      ************************************************************/
-    let post = await axios({
-      method: "post",
-      url: "/api/user/login",
-      data: data,
-    });
+    let post = await axios.post("/api/user/login", data);
     /*************************************************************
      * Send the results back to the calling program
      ************************************************************/

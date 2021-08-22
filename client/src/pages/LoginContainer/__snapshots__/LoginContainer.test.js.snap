@@ -18,7 +18,9 @@ exports[`LoginContainer matches snapshot 1`] = `
           class="col-12 align-self-center"
           data-test="col"
         >
-          <form>
+          <form
+            data-testid="login-form"
+          >
             <h1
               class="mt-5"
             >
@@ -26,7 +28,7 @@ exports[`LoginContainer matches snapshot 1`] = `
             </h1>
             <br />
             <div
-              class="form-group"
+              class="from-group"
             >
               <div
                 class="row"
