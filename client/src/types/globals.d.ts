@@ -385,12 +385,7 @@ interface ActionBtnPropType {
   /**********************/
   /************LoginForm************/
   interface LoginFormPropType {
-    email: string;
-    password: string;
-    message: string;
-    token: string;
-    changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-    clickHandler: (event: FormEvent<HTMLFormElement>) => void;
+    getRole?: () => string;
   }
   /**********************/
   /**************UpdateForm ***************/
@@ -520,7 +515,12 @@ interface ActionBtnPropType {
     placeholder?: string;
     name: string;
     value: string;
-    changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+
+    // Delete this
+    changeHandler?: (event: ChangeEvent<HTMLInputElement>) => void;
+    
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+
     testId: string;
   }
   /*********************************/
