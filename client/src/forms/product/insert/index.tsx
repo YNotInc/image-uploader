@@ -70,7 +70,7 @@ let ProductInsertForm: FC<ProductInsertFormPropType> = (props: ProductInsertForm
                                             color="blue-grey"
                                             type="submit"
                                         >
-                                            Submit
+                                            Submitfc
                                         </MDBBtn>
                                         <h3 className="mt-5">{props.message ? props.message : ''}</h3>
                                     </MDBCol>

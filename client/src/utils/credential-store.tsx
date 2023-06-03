@@ -53,9 +53,9 @@ export let credentials = {
                 // }
             } // if
         } // try
-        catch (err) {
+        catch (err: unknown) {
             // Clear all localStorage, due to invalid Refresh token
-            if (err.response.status === 401) {
+            if ((err as CatchErrorType).response.status === 401) {
                 console.log('401 status received in ProductUpdate');
                 /***********************************************
                  * STEP6: Reset Local Storage Variables
@@ -74,7 +74,7 @@ export let credentials = {
                     email: '',
                     hasAccessTokenExpired: false,
                     isUserAuthorized: false,
-                    message: err.response.data.message
+                    message: (err as CatchErrorType).response.data.message
                 });
             } // if
         } // catch  

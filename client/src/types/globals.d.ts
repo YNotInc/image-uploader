@@ -1,13 +1,13 @@
-import { string } from "prop-types";
+// import { string } from "prop-types";
 
-import React, { ChangeEvent, JSXElement } from "react";
-import { urlBtnUpdates } from "utils/url-btn-updates";
+import { ChangeEvent} from "react";
+// import { urlBtnUpdates } from "utils/url-btn-updates";
 
 declare global {
   /**************************
    * LoginContainer
    **************************/
-    interface DataType {
+  interface DataType {
     email: string;
     password: string;
   }
@@ -88,12 +88,12 @@ declare global {
 
   type ProductDataType = ProductListDataType | FilteredListType;
   /***************************/
-// ActionButton
-interface ActionBtnPropType {
-  btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
-  id: string;
-  buttonName: string;
-}
+  // ActionButton
+  interface ActionBtnPropType {
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    id: string;
+    buttonName: string;
+  }
   /**************************
    * TransitionBtn
    **************************/
@@ -107,7 +107,7 @@ interface ActionBtnPropType {
   /**************************
    * TransitionBtn
    **************************/
-   interface TransitionImgPropType {
+  interface TransitionImgPropType {
     to: {
       pathname: string;
       state: {
@@ -222,9 +222,9 @@ interface ActionBtnPropType {
     role: string;
     loggedOut: boolean;
     history: any;
-    areCredentialsValid: ()=>boolean;
+    areCredentialsValid: () => boolean;
     credentialsActive: boolean;
-    setRole: (role: string, isLoggedOut: boolean)=>void;
+    setRole: (role: string, isLoggedOut: boolean) => void;
   }
   interface ProductViewStateType {
     productItemComponent: JSX.Element | null;
@@ -312,7 +312,7 @@ interface ActionBtnPropType {
     role: string;
   }
   interface ProductUpdateStateType {
-    productItemComponent: JSX.Element | null,
+    productItemComponent: JSX.Element | null;
     productId: string;
     productName: string;
     productValue: string;
@@ -338,12 +338,12 @@ interface ActionBtnPropType {
     hasAccessTokenExpired?: boolean;
     productsList?: {
       [key: string]: string;
-    }
+    };
   }
   /*************************************/
   /******RegistrationContainerPropType******/
   interface RegContainerPropType {
-    redirectLogin: ()=>void;
+    redirectLogin: () => void;
   }
   interface RegContainerStateType {
     email: string;
@@ -375,6 +375,15 @@ interface ActionBtnPropType {
   /**********************/
   /*************************************/
   /********CredentialStore.tsx*******/
+  interface CatchErrorType {
+    message: string;
+    response: {
+      status: number;
+      data: {
+        message: string;
+      };
+    };
+  }
   interface CurrentCredentialType {
     access_token: string;
     refresh_token: string;
@@ -479,12 +488,12 @@ interface ActionBtnPropType {
     path: string;
     id: string;
     btnName: string;
-    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   interface ProdDeleteItemProps {
     id: string;
     btnName: string;
-    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   interface ProdImgViewItemProps {
     id: string;
@@ -518,7 +527,7 @@ interface ActionBtnPropType {
 
     // Delete this
     changeHandler?: (event: ChangeEvent<HTMLInputElement>) => void;
-    
+
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 
     testId: string;
@@ -558,9 +567,9 @@ interface ActionBtnPropType {
   interface LoginBtnPropType {
     name: string;
     route: string;
-    handlePageClick?: (event)=>void;
-    captureEvent: (event: SyntheticEvent<MouseEvent, Event>)=>void;
-    setRole: (role: string, loggedOut: boolean)=>void;
+    handlePageClick?: (event) => void;
+    captureEvent: (event: SyntheticEvent<MouseEvent, Event>) => void;
+    setRole: (role: string, loggedOut: boolean) => void;
     role: string;
   }
   /**************************/

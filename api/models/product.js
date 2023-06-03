@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     cloudId: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
     },
   });

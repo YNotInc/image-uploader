@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios, { AxiosError } from 'axios';
 import { urlBtnUpdates } from "utils/url-btn-updates";
 import Can from "components/can";
 
@@ -124,7 +125,7 @@ const ProductViewContainer = (props: ProductViewPropType) => {
                     catch (err) {
                         // Clear all localStorage, due to invalid Refresh token
                         console.log("err: ", err);
-                        if (err.response.status === 401) {
+                        if ((err as AxiosError).response?.status === 401) {
                             console.log('401 status received in ProductInsert');
                             /**********************
                              * Reset Local Storage 
@@ -171,132 +172,132 @@ const ProductViewContainer = (props: ProductViewPropType) => {
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [state.authToken, state.email, state.hasAccessTokenExpired, state.access_token, state.refresh_token, state.productItemComponent?.props.image]);
 
-    const deleteClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        try {
-            event.preventDefault();
-            /************************************
-             * STEP1: GET Product ID to be deleted
-             ************************************/
-            let productId = (event.target as HTMLButtonElement).id;
+        const deleteClickHandler = async (event: React.MouseEvent<HTMLButtonElement>) => {
+            try {
+                event.preventDefault();
+                /************************************
+                 * STEP1: GET Product ID to be deleted
+                 ************************************/
+                let productId = (event.target as HTMLButtonElement).id;
 
-            /******************************************
-             * STEP2: Evaluate localStorage credentials and set STATE VARIABLES with evaluated credentials
-             *******************************/
-            // Retrieve StateCredentials
-            const evaluatedCredentials = credentialStore.getEvaluatedCredentials(await auth.getLocalStorage());
+                /******************************************
+                 * STEP2: Evaluate localStorage credentials and set STATE VARIABLES with evaluated credentials
+                 *******************************/
+                // Retrieve StateCredentials
+                const evaluatedCredentials = credentialStore.getEvaluatedCredentials(await auth.getLocalStorage());
 
-            // Set state credentials
-            setState((prevState) => ({
-                ...prevState,
-                ...evaluatedCredentials
-            }));
-
-            console.log("AUTHTOKEN Set to LocalStorage:", state.authToken);
-            /*************************************/
-
-            console.log("hasAccessTokenExpired", state.hasAccessTokenExpired);
-            /*************************************
-             * STEP3: If accessToken expired, use 
-             * refreshToken to generate a new 
-             * accessToken. If refreshToken 
-             * expired, clear all tokens from 
-             * localStorage
-             ************************************/
-            if (state.hasAccessTokenExpired) {
-                try {
-                    /*****************************
-                     * Step4: Call 
-                     * credendentialStore to get 
-                     * new AccessTokens from the 
-                     * API, AND SET LOCAL STORAGE 
-                     * WITH RESULTS, if 
-                     * refreshTokens valid
-                     **************************/
-                    let newUserCredentials = await credentialStore.setLocalCredWNewTokens(state.refresh_token, refreshURL, state.authToken, state.email, state.hasAccessTokenExpired);
-                    /***********************************/
-
-                    if (newUserCredentials) {
-                        console.log("NEW ACCESS TOKENS HAVE BEEN RECEIVED From Refresh;  newUserCredentials:", newUserCredentials);
-                        /***********************
-                         * STEP5: Evaluate 
-                         * localStorage 
-                         * credentials and set 
-                         * state variables with 
-                         * results 
-                         ***********************/
-                        // Get state credentials
-                        const evaluatedCredentials = credentialStore.getEvaluatedCredentials(await auth.getLocalStorage());
-
-                        // Set state credentials
-                        setState((prevState) => ({
-                            ...prevState,
-                            ...evaluatedCredentials
-                        }));
-
-                        console.log("New AUTHTOKEN after Refresh:", state.authToken);
-                    }
-                    // AccessToken and RefreshToken expired
-                    else {
-                        props.setRole("visitor", true);
-                        auth.resetLocalStorage();
-                    }
-                }
-                catch (err) {
-                    // Clear all localStorage, due to invalid Refresh token
-                    console.log("err: ", err);
-                    if (err.response.status === 401) {
-                        console.log('401 status received in ProductInsert');
-                        /**********************
-                         * Reset Local Storage 
-                         * Variables
-                         ***********************/
-                        await auth.resetLocalStorage();
-                    }
-                }
-            } // if
-            /*************************************************/
-            console.log("AUTHORIZED?:", state.isUserAuthorized);
-            if (state.isUserAuthorized) {
-                /*******************************
-                 *STEP 6: PERFORM A DB ACTION IF TOKENS R VALID
-                ********************************/
-                console.log("EMAIL IN STAGEDBACTION:", state.email);
-
-                // Stage DB Action, by passing it the 
-                // action to be performed as last argument
-                // and setting state with the results
-                let dbActionResults = await stageDBAction(
-                    productId,
-                    state.email,
-                    null,
-                    null,
-                    null,
-                    deleteURL,
-                    state.refresh_token,
-                    state.authToken,
-                    state.hasAccessTokenExpired,
-                    deleteProduct);
-
-                // Set state variables
+                // Set state credentials
                 setState((prevState) => ({
                     ...prevState,
-                    ...dbActionResults
+                    ...evaluatedCredentials
                 }));
+
+                console.log("AUTHTOKEN Set to LocalStorage:", state.authToken);
+                /*************************************/
+
+                console.log("hasAccessTokenExpired", state.hasAccessTokenExpired);
+                /*************************************
+                 * STEP3: If accessToken expired, use 
+                 * refreshToken to generate a new 
+                 * accessToken. If refreshToken 
+                 * expired, clear all tokens from 
+                 * localStorage
+                 ************************************/
+                if (state.hasAccessTokenExpired) {
+                    try {
+                        /*****************************
+                         * Step4: Call 
+                         * credendentialStore to get 
+                         * new AccessTokens from the 
+                         * API, AND SET LOCAL STORAGE 
+                         * WITH RESULTS, if 
+                         * refreshTokens valid
+                         **************************/
+                        let newUserCredentials = await credentialStore.setLocalCredWNewTokens(state.refresh_token, refreshURL, state.authToken, state.email, state.hasAccessTokenExpired);
+                        /***********************************/
+
+                        if (newUserCredentials) {
+                            console.log("NEW ACCESS TOKENS HAVE BEEN RECEIVED From Refresh;  newUserCredentials:", newUserCredentials);
+                            /***********************
+                             * STEP5: Evaluate 
+                             * localStorage 
+                             * credentials and set 
+                             * state variables with 
+                             * results 
+                             ***********************/
+                            // Get state credentials
+                            const evaluatedCredentials = credentialStore.getEvaluatedCredentials(await auth.getLocalStorage());
+
+                            // Set state credentials
+                            setState((prevState) => ({
+                                ...prevState,
+                                ...evaluatedCredentials
+                            }));
+
+                            console.log("New AUTHTOKEN after Refresh:", state.authToken);
+                        }
+                        // AccessToken and RefreshToken expired
+                        else {
+                            props.setRole("visitor", true);
+                            auth.resetLocalStorage();
+                        }
+                    }
+                    catch (err: unknown) {
+                        // Clear all localStorage, due to invalid Refresh token
+                        console.log("err: ", err);
+                        if ((err as AxiosError).response?.status === 401) {
+                            console.log('401 status received in ProductInsert');
+                            /**********************
+                             * Reset Local Storage 
+                             * Variables
+                             ***********************/
+                            await auth.resetLocalStorage();
+                        }
+                    }
+                } // if
+                /*************************************************/
+                console.log("AUTHORIZED?:", state.isUserAuthorized);
+                if (state.isUserAuthorized) {
+                    /*******************************
+                     *STEP 6: PERFORM A DB ACTION IF TOKENS R VALID
+                    ********************************/
+                    console.log("EMAIL IN STAGEDBACTION:", state.email);
+
+                    // Stage DB Action, by passing it the 
+                    // action to be performed as last argument
+                    // and setting state with the results
+                    let dbActionResults = await stageDBAction(
+                        productId,
+                        state.email,
+                        null,
+                        null,
+                        null,
+                        deleteURL,
+                        state.refresh_token,
+                        state.authToken,
+                        state.hasAccessTokenExpired,
+                        deleteProduct);
+
+                    // Set state variables
+                    setState((prevState) => ({
+                        ...prevState,
+                        ...dbActionResults
+                    }));
+                }
             }
-        }
-        catch (err) {
-            console.log("ERROR:", err);
-            console.log("User is logged out");
-            setState((prevState: any) => ({
-                ...prevState,
-                message: "User is logged out"
-            }));
+            catch (err) {
+                console.log("ERROR:", err);
+                console.log("User is logged out");
+                setState((prevState: any) => ({
+                    ...prevState,
+                    message: "User is logged out"
+                }));
 
-        }
+            }
 
-        // reroute to products page 
-        props.history.push('/products');
-    }
+            // reroute to products page 
+            props.history.push('/products');
+        }
 
     return (
         <React.Fragment>
