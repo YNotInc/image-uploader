@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { urlBtnUpdates } from "utils/url-btn-updates";
 import Can from "components/can";
 
