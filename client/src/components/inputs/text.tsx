@@ -4,18 +4,22 @@ import React from 'react';
 let Text = (props: TextPropType) => {
   return (
     <React.Fragment>
-      <label htmlFor={props.label} />
+      <MDBRow><br /></MDBRow>
       <MDBRow>
         <MDBCol
           size="auto"
         >
-          {props.label}
-      </MDBCol>
+          <label id={props.id} htmlFor={props.id}>
+            {props.label}
+          </label>
+        </MDBCol>
         <MDBCol>
           <input
+            aria-labelledby={props.id}
             type="text"
             className={props.className}
             id={props.id}
+            data-testid={props.testId}
             placeholder={props.placeholder}
             name={props.name}
             value={props.value}

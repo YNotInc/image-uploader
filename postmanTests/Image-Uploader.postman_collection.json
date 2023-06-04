@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "761157b9-6afa-4a9d-833a-53f3561ba736",
+		"name": "Image-Uploader",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3001/api/products/",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Login Credentials",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"email\": \"admin@ymail.com\", \"password\": \"admin\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The database created with _id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.createdProduct._id).to.exist;\r",
+							"    if(jsonData.createdProduct._id) {\r",
+							"        pm.environment.set(\"_id\", jsonData.createdProduct._id)\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The database created with the name variable\", function() {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.createdProduct.name).to.equal(pm.environment.get(\"nameValue\"));\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authTokenValue}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "refreshtoken",
+						"value": "{{refreshTokenValue}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " [\r\n    {\"propName\":\"name\",\"value\": \"{{nameValue}}\"},\r\n    {\"propName\":\"value\",\"value\":\"46\"},\r\n    {\"propName\":\"productImage\",\"value\":\"http://res.cloudinary.com/dcpxcocju/image/upload/v1629688072/xju22bulfv03yaflcbq4.png\"},\r\n    {\"propName\":\"cloudId\",\"value\":\"xju22bulfv03yaflcbq4\"},\r\n    {\"propName\":\"productId\",\"value\":\"\"},\r\n    {\"propName\":\"authToken\",\"value\": \"{{authTokenValue}}\"},\r\n    {\"propName\":\"refreshToken\",\"value\": \"{{refreshTokenValue}}\"},\r\n    {\"propName\":\"email\",\"value\":\"admin@ymail.com\"},\r\n    {\"propName\":\"expired\",\"value\":false}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/products/product/insert/",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"product",
+						"insert",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{authTokenValue}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "refreshToken",
+						"value": "{{refreshTokenValue}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/api/products/product/{{_id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"products",
+						"product",
+						"{{_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

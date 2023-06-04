@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginContainer matches snapshot 1`] = `
+<DocumentFragment>
+  <main
+    class="form-align flex-shrink-0"
+    role="main"
+  >
+    <div
+      class="container"
+      data-test="container"
+    >
+      <div
+        class="row"
+        data-test="row"
+      >
+        <div
+          class="col-12 align-self-center"
+          data-test="col"
+        >
+          <form
+            data-testid="login-form"
+          >
+            <h1
+              class="mt-5"
+            >
+              Login Form
+            </h1>
+            <br />
+            <div
+              class="from-group"
+            >
+              <div
+                class="row"
+                data-test="row"
+              >
+                <br />
+              </div>
+              <div
+                class="row"
+                data-test="row"
+              >
+                <div
+                  class="col-auto"
+                  data-test="col"
+                >
+                  <label
+                    for="formGroupEmail"
+                    id="formGroupEmail"
+                  >
+                    Email
+                  </label>
+                </div>
+                <div
+                  class="col"
+                  data-test="col"
+                >
+                  <input
+                    aria-labelledby="formGroupEmail"
+                    class="form-control"
+                    data-testid="login-email"
+                    id="formGroupEmail"
+                    name="email"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="row"
+                data-test="row"
+              >
+                <br />
+              </div>
+              <div
+                class="row"
+                data-test="row"
+              >
+                <div
+                  class="col-auto"
+                  data-test="col"
+                >
+                  <label
+                    for="formGroupPassword"
+                    id="formGroupPassword"
+                  >
+                    Password
+                  </label>
+                </div>
+                <div
+                  class="col"
+                  data-test="col"
+                >
+                  <input
+                    aria-labelledby="formGroupPassword"
+                    class="form-control"
+                    data-testid="login-password"
+                    id="formGroupPassword"
+                    name="password"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <br />
+              <div
+                class="row"
+                data-test="row"
+              >
+                <div
+                  class="col"
+                  data-test="col"
+                >
+                  <label
+                    for="formGroupPassword"
+                  />
+                  <button
+                    class="btn-blue-grey btn Ripple-parent mx-0"
+                    data-test="button"
+                    type="submit"
+                  >
+                    Submit
+                    <div
+                      class="Ripple "
+                      data-test="waves"
+                      style="top: 0px; left: 0px; width: 0px; height: 0px;"
+                    />
+                  </button>
+                  <h3
+                    class="mt-5"
+                  />
+                  <h3
+                    class="mt-5"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

@@ -26,11 +26,7 @@ export let api = {
     /*************************************************************
      *  package and send the body to the endpoint
      ************************************************************/
-    let post = await axios({
-      method: "post",
-      url: "/api/user/login",
-      data: data,
-    });
+    let post = await axios.post("/api/user/login", data);
     /*************************************************************
      * Send the results back to the calling program
      ************************************************************/
@@ -101,7 +97,10 @@ export let api = {
   },
 
   refreshTokens: async (url, accessToken, refreshToken, email, expired) => {
+    console.log("API In URL: ", url);
+    console.log("API In AccessToken: ", accessToken);
     console.log("API In RefreshToken: ", refreshToken);
+    console.log("API In Email: ", email);
     if (url) {
       /*************************************************************
        *  package and send the body to the endpoint
@@ -237,7 +236,7 @@ export let api = {
           refreshtoken: refreshToken,
         },
       };
-
+      console.log(`Cloudinary: ${JSON.stringify(config)}; FormData: ${JSON.stringify(formData)}`);
       // NEW POST WITH FORMDATA
       const post = await axios.post(baseURL, formData, config);
 
@@ -309,13 +308,16 @@ export let api = {
       /*************************************************************
        *  package and send the body to the endpoint
        ************************************************************/
-      const insert = await axios.post(baseURL, data, {
-        headers: {
-          Authorization: authToken,
-          "Content-Type": "application/json",
-          refreshtoken: refreshToken,
-        },
-      });
+      const headers = {
+          headers: {
+            Authorization: authToken,
+            "Content-Type": "application/json",
+            refreshtoken: refreshToken,
+          }
+      };
+      console.log(`Insert Product DATA: ${JSON.stringify(data)}; headers: ${JSON.stringify(headers)}`);
+      
+      const insert = await axios.post(baseURL, data, headers);
       /*************************************************************
        * Send the results back to the calling program
        ************************************************************/

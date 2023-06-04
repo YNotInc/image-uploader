@@ -14,7 +14,7 @@ const ProductsController = require("../controllers/products");
 /*************************************************
  * products': Second argument is a handler function
  * Display URL: localhost:3000/products/
- * API URL: 'api/products/'
+ * API URL: 'localhost:3001/api/products/'
  * Access: Visitor/User/Admin - No Check Auth req
  *************************************************/
 router.get("/", ProductsController.products_get_all);
@@ -28,7 +28,7 @@ router.get("/", ProductsController.products_get_all);
 
 /***********************************
  * Purpose: Insert a new Product
- * API URL: 'api/products/product/insert/'
+ * API URL: 'localhost:3001/api/products/product/insert/'
  * Access: User/Admin - Check Auth req
  ***********************************/
 router.post(
@@ -39,7 +39,7 @@ router.post(
 
 /*******************************
  * Purpose: Insert an image to cloudinary
- * API URL: 'api/products/cloudinary/insert/'
+ * API URL: 'localhost:3001/api/products/cloudinary/insert/'
  * Access: Admin - Check Auth req
  *******************************/
 router.post(
@@ -52,7 +52,7 @@ router.post(
  * Purpose: Update existing product
  * Display URL: localhost:3000/products/product/update
  * :productId
- * API URL: 'api/products/product/update/:productId
+ * API URL: 'localhost:3001/api/products/product/update/:productId
  * Access: Admin - Check Auth req
  *********************************************/
 router.patch(
@@ -65,7 +65,7 @@ router.patch(
  * Purpose: Get a product
  * Display URL: localhost:3000/products/
  * :productId
- * API URL: 'api/products/product/:productId'
+ * API URL: 'localhost:3001/api/products/product/:productId'
  * Access: User/Admin - Check Auth req
  *******************************/
 router.get(
@@ -76,7 +76,7 @@ router.get(
 
 /*********************************
  * Purpose: Delete a product
- * API URL: 'api/products/product/delete/:productId
+ * API URL: 'localhost:3001/api/products/product/delete/:productId
  * Access: Admin - Check Auth req
  **********************************/
 router.delete(

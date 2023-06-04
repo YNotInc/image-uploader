@@ -60,7 +60,7 @@ exports.cb_image_upload = async (req, res, next) => {
       } else {
         console.log("Success", result);
         // console.log(cloudinary.image());
-        res.status(200).json(result);
+        res.status(201).json(result);
       }
     }
   );

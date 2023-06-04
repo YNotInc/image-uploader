@@ -1,13 +1,13 @@
-import { string } from "prop-types";
+// import { string } from "prop-types";
 
-import React, { ChangeEvent, JSXElement } from "react";
-import { urlBtnUpdates } from "utils/url-btn-updates";
+import { ChangeEvent} from "react";
+// import { urlBtnUpdates } from "utils/url-btn-updates";
 
 declare global {
   /**************************
    * LoginContainer
    **************************/
-    interface DataType {
+  interface DataType {
     email: string;
     password: string;
   }
@@ -50,8 +50,8 @@ declare global {
   }
 
   interface ProductListStateType {
-    productsList: ProductDataType[];
-    productListData: ProductDataType[];
+    // productsList: ProductDataType[];
+    productsListData: ProductDataType[];
     authToken: string;
     access_token: string;
     expiration: string;
@@ -66,15 +66,15 @@ declare global {
   }
 
   interface ProductListDataType {
-    name: string;
-    productImage: string;
-    request: {
+    name?: string;
+    productImage?: string;
+    request?: {
       type: string;
       url: string;
     };
-    value: string;
-    _id: string;
-    length: number;
+    value?: string;
+    _id?: string;
+    length?: number;
   }
 
   interface FilteredListType {
@@ -88,12 +88,12 @@ declare global {
 
   type ProductDataType = ProductListDataType | FilteredListType;
   /***************************/
-// ActionButton
-interface ActionBtnPropType {
-  btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
-  id: string;
-  buttonName: string;
-}
+  // ActionButton
+  interface ActionBtnPropType {
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    id: string;
+    buttonName: string;
+  }
   /**************************
    * TransitionBtn
    **************************/
@@ -107,7 +107,7 @@ interface ActionBtnPropType {
   /**************************
    * TransitionBtn
    **************************/
-   interface TransitionImgPropType {
+  interface TransitionImgPropType {
     to: {
       pathname: string;
       state: {
@@ -222,24 +222,26 @@ interface ActionBtnPropType {
     role: string;
     loggedOut: boolean;
     history: any;
-    areCredentialsValid: ()=>boolean;
+    areCredentialsValid: () => boolean;
     credentialsActive: boolean;
-    setRole: (role: string, isLoggedOut: boolean)=>void;
+    setRole: (role: string, isLoggedOut: boolean) => void;
   }
   interface ProductViewStateType {
-    productsList: ProductDataType[];
-    productListData: ProductDataType[];
-    productItem: ProductViewItem;
-    baseUrl: string;
-    access_token: "";
-    authToken: "";
-    refresh_token: "";
-    expiration: "";
-    email: "";
-    hasAccessTokenExpired: false;
-    isUserAuthorized: true;
-    loading: false;
-    message: "";
+    productItemComponent: JSX.Element | null;
+    baseUrl?: string;
+    access_token: string;
+    authToken: string;
+    refresh_token: string;
+    expiration: string;
+    email: string;
+    hasAccessTokenExpired: boolean;
+    isUserAuthorized: boolean | undefined;
+    loading?: boolean;
+    message: string | undefined;
+    expired?: boolean;
+    // productsList?: ProductListDataType | undefined;
+    placeholderName?: string;
+    placeholderValue?: string;
   }
 
   /***********************/
@@ -310,7 +312,7 @@ interface ActionBtnPropType {
     role: string;
   }
   interface ProductUpdateStateType {
-    productItem: ProductViewItem,
+    productItemComponent: JSX.Element | null;
     productId: string;
     productName: string;
     productValue: string;
@@ -336,12 +338,12 @@ interface ActionBtnPropType {
     hasAccessTokenExpired?: boolean;
     productsList?: {
       [key: string]: string;
-    }
+    };
   }
   /*************************************/
   /******RegistrationContainerPropType******/
   interface RegContainerPropType {
-    redirectLogin: ()=>void;
+    redirectLogin: () => void;
   }
   interface RegContainerStateType {
     email: string;
@@ -373,6 +375,15 @@ interface ActionBtnPropType {
   /**********************/
   /*************************************/
   /********CredentialStore.tsx*******/
+  interface CatchErrorType {
+    message: string;
+    response: {
+      status: number;
+      data: {
+        message: string;
+      };
+    };
+  }
   interface CurrentCredentialType {
     access_token: string;
     refresh_token: string;
@@ -383,12 +394,7 @@ interface ActionBtnPropType {
   /**********************/
   /************LoginForm************/
   interface LoginFormPropType {
-    email: string;
-    password: string;
-    message: string;
-    token: string;
-    changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
-    clickHandler: (event: FormEvent<HTMLFormElement>) => void;
+    getRole?: () => string;
   }
   /**********************/
   /**************UpdateForm ***************/
@@ -482,12 +488,12 @@ interface ActionBtnPropType {
     path: string;
     id: string;
     btnName: string;
-    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   interface ProdDeleteItemProps {
     id: string;
     btnName: string;
-    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>)=>void;
+    btnClickHandler: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   interface ProdImgViewItemProps {
     id: string;
@@ -518,7 +524,13 @@ interface ActionBtnPropType {
     placeholder?: string;
     name: string;
     value: string;
-    changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+
+    // Delete this
+    changeHandler?: (event: ChangeEvent<HTMLInputElement>) => void;
+
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+
+    testId: string;
   }
   /*********************************/
 
@@ -555,9 +567,9 @@ interface ActionBtnPropType {
   interface LoginBtnPropType {
     name: string;
     route: string;
-    handlePageClick?: (event)=>void;
-    captureEvent: (event: SyntheticEvent<MouseEvent, Event>)=>void;
-    setRole: (role: string, loggedOut: boolean)=>void;
+    handlePageClick?: (event) => void;
+    captureEvent: (event: SyntheticEvent<MouseEvent, Event>) => void;
+    setRole: (role: string, loggedOut: boolean) => void;
     role: string;
   }
   /**************************/

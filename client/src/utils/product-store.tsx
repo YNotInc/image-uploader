@@ -182,7 +182,7 @@ export let performDBAction = async (
     cb: Function) => {
 
     const uniqueProductError: string = "Request failed with status code 500";
-    const uniqueProductMsg = "Product name exists";
+    const uniqueProductMsg = "Invalid Input";
 
     console.log("ProductStore: PerformDbAction:", "email:", email);
     console.log('ProductUpdateContainer:refresh_token = ', refreshToken);

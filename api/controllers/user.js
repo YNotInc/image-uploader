@@ -59,7 +59,7 @@ exports.user_register = async (req, res, next) => {
 
 exports.user_refreshTokens = async (req, res, next) => {
   let email = req.body.email;
-  console.log("user_controller: " + email);
+  console.log("In user_refreshTokens controller: " + email);
 
   try {
     const duplicateEmail = await db.user.findOne({

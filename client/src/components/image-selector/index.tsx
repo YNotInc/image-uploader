@@ -8,6 +8,8 @@ export let ImageSelector = (
     return (
         <React.Fragment>
             <div className={"input-group img-select-btn"}>
+                <label 
+                className="image-label  visually-hidden" htmlFor={props.submitBtnId}>Select Image:</label>
                 <input
                     type={props.imageType}
                     className={`${props.imageClassName} border`}

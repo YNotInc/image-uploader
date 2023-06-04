@@ -1,7 +1,21 @@
-.img-select-btn {
-    /* margin-top: 1rem; */
-    
+/*.img-select-btn {
+    margin-top: 1rem;   
+}*/
+
+ /* #image-input {
+   margin: 9px !important; 
+}*/
+
+.image-label {
+    margin-top: 10px;
 }
-#image-input {
-    /* margin: 9px !important; */
-}
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }

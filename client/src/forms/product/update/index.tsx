@@ -19,6 +19,7 @@ let ProductUpdateForm = (props: UpdateFormPropType) => {
                                     htmlFor={"formGroupEmail"}
                                     className={"form-control product-name"}
                                     id={"formGroupName"}
+                                    testId={"update-name"}
                                     placeholder={props.placeholderName}
                                     label={"Name"}
                                     name={"productName"}
@@ -30,6 +31,7 @@ let ProductUpdateForm = (props: UpdateFormPropType) => {
                                     htmlFor={"formGroupName"}
                                     className={"form-control"}
                                     id={"formGroupValue"}
+                                    testId={"update-value"}
                                     placeholder={props.placeholderValue}
                                     name={"productValue"}
                                     label={"Price"}
