@@ -156,7 +156,7 @@ export async function insertProduct(
 }
 
 /**
-* Perform DB Actipn - Executes the callback function, with user credentials
+* Perform DB Action - Executes the callback function, with user credentials
 * @param [productId] 
 * @param email 
 * @param authToken 

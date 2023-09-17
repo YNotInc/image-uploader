@@ -188,32 +188,45 @@ exports.products_update_product = async (req, res, next) => {
   console.log("IN PRODUCT UPDATE");
   try {
     // Step 1: After the access token is verified, send a new access and refresh token
-    const id = req.params.productId;
+    const id = parseInt(req.params.productId);
     const updateProps = {};
     // Step 2: Loop through the array of objects sent in the request, which will choose the field you want to update from the request body (name). The new object (updateProps) will have the field and value you want to update
+    console.log("BODY:", req.body);
     for (let key of req.body) {
+      console.log("KEY:", key);
       // validate that data has been supplied
       if (key.value) {
         updateProps[key.propName] = key.value;
       }
     } // for
-    // console.log("Products_update: updateProps:", updateProps);
-    // Step 3: Perform the update
+    console.log("Products_update: updateProps:", updateProps);
+    // Step 3: Perform the update: Note record not being returned so adding manually:
     const document = await db.product.update(updateProps, {
       where: {
         id: id,
       },
+      returning: true,
     });
 
-    // console.log("Products Controller: Updated Product:", document);
+    console.log(
+      "ID:",
+      id,
+      "type:",
+      typeof id,
+      ";Products Controller: Updated Product:",
+      document
+    );
+
     if (document) {
       const product = {
         message: "Product Updated",
+        name: updateProps.name,
         request: {
           type: "GET",
           url: "http://localhost:3000/products/product/update/" + id,
         },
       };
+      console.log("PRODUCT:", product);
       res.status(200).json(product);
     }
   } catch (err) {
@@ -227,7 +240,7 @@ exports.products_update_product = async (req, res, next) => {
 exports.products_delete_product = async (req, res, next) => {
   try {
     console.log("IN PRODUCTS_DELETE_PRODUCT");
-    const id = req.params.productId;
+    const id = parseInt(req.params.productId);
     // Product.deleteOne( {_id: id} )
     /***************************** */
     const cloudResult = await db.product.findOne({
@@ -237,23 +250,27 @@ exports.products_delete_product = async (req, res, next) => {
       },
     });
 
-    if (cloudResult.cloudId) {
+    if (cloudResult && cloudResult.cloudId) {
+      let cloudImageDestroyed = await cloudinary.uploader.destroy(
+        cloudResult.cloudId
+      );
+      console.log("CLOUDDESTROYED", cloudImageDestroyed);
+      // res.status(200).json(cloudId);
+      /********************************** */
+    }
+    if (id) {
       try {
-        let cloudImageDestroyed = await cloudinary.uploader.destroy(
-          cloudResult.cloudId
-        );
-        console.log("CLOUDDESTROYED", cloudImageDestroyed);
-        // res.status(200).json(cloudId);
-        /********************************** */
         const document = await db.product.destroy({
           where: { id: id },
         });
 
         if (document) {
+          console.log("TEST");
           const response = {
             message: "Product deleted",
+            id: id,
             request: {
-              type: "POST",
+              type: "DELETE",
               url: "http://localhost:3000/products/product/delete/" + id,
               // body: { name: 'String', value: 'Number'}
             },

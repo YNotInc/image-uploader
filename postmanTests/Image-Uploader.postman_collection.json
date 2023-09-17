@@ -1,21 +1,34 @@
 {
 	"info": {
-		"_postman_id": "761157b9-6afa-4a9d-833a-53f3561ba736",
+		"_postman_id": "90680d77-8c2e-4976-8e2e-30dfc40f4405",
 		"name": "Image-Uploader",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1065657"
 	},
 	"item": [
 		{
 			"name": "Get Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:3001/api/products/",
+					"raw": "{{server}}/api/products/",
 					"host": [
-						"localhost"
+						"{{server}}"
 					],
-					"port": "3001",
 					"path": [
 						"api",
 						"products",
@@ -27,6 +40,18 @@
 		},
 		{
 			"name": "Get Login Credentials",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"authTokenValue\", pm.response.json().access_token)\r",
+							"pm.environment.set(\"refreshTokenValue\", pm.response.json().refresh_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -40,11 +65,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3001/api/user/login",
+					"raw": "{{server}}/api/user/login",
 					"host": [
-						"localhost"
+						"{{server}}"
 					],
-					"port": "3001",
 					"path": [
 						"api",
 						"user",
@@ -103,7 +127,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " [\r\n    {\"propName\":\"name\",\"value\": \"{{nameValue}}\"},\r\n    {\"propName\":\"value\",\"value\":\"46\"},\r\n    {\"propName\":\"productImage\",\"value\":\"http://res.cloudinary.com/dcpxcocju/image/upload/v1629688072/xju22bulfv03yaflcbq4.png\"},\r\n    {\"propName\":\"cloudId\",\"value\":\"xju22bulfv03yaflcbq4\"},\r\n    {\"propName\":\"productId\",\"value\":\"\"},\r\n    {\"propName\":\"authToken\",\"value\": \"{{authTokenValue}}\"},\r\n    {\"propName\":\"refreshToken\",\"value\": \"{{refreshTokenValue}}\"},\r\n    {\"propName\":\"email\",\"value\":\"admin@ymail.com\"},\r\n    {\"propName\":\"expired\",\"value\":false}\r\n]",
+					"raw": " [\r\n    {\"propName\":\"name\",\"value\": \"{{nameValue}}\"},\r\n    {\"propName\":\"value\",\"value\":\"46\"},\r\n    {\"propName\":\"productImage\",\"value\":\"http://res.cloudinary.com/dcpxcocju/image/upload/v1629688072/xju22bulfv03yaflcbq4.png\"},\r\n    {\"propName\":\"cloudId\",\"value\":\"xju22bulfv03yaflcbq4\"},\r\n    {\"propName\":\"productId\",\"value\":\"\"},\r\n    {\"propName\":\"authToken\",\"value\":\"{{authTokenValue}}\"},\r\n    {\"propName\":\"refreshToken\",\"value\": \"{{refreshTokenValue}}\"},\r\n    {\"propName\":\"email\",\"value\":\"admin@ymail.com\"},\r\n    {\"propName\":\"expired\",\"value\":false}\r\n]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,11 +135,10 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3001/api/products/product/insert/",
+					"raw": "{{server}}/api/products/product/insert/",
 					"host": [
-						"localhost"
+						"{{server}}"
 					],
-					"port": "3001",
 					"path": [
 						"api",
 						"products",
@@ -162,15 +185,139 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3001/api/products/product/{{_id}}",
+					"raw": "{{server}}/api/products/product/18",
 					"host": [
-						"localhost"
+						"{{server}}"
 					],
-					"port": "3001",
 					"path": [
 						"api",
 						"products",
 						"product",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name has been updated\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.equal(\"Will Ham\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "refreshToken",
+						"value": "{{refreshTokenValue}}",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "{{authTokenValue}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"propName\": \"name\",\r\n        \"value\": \"Will Ham\"\r\n    },\r\n    {\r\n        \"propName\": \"value\",\r\n        \"value\": \"999\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/products/product/update/18",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"product",
+						"update",
+						"18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Product has been deleted\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    const deleteId = pm.environment.get(\"_id\")\r",
+							"    pm.expect(jsonData.id).to.equal(deleteId);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Refreshtoken",
+						"value": "{{refreshTokenValue}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authTokenValue}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"expired\": false,\r\n    \"email\": \"admin@ymail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/products/product/delete/{{_id}}",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"product",
+						"delete",
 						"{{_id}}"
 					]
 				}

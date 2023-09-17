@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes) {
   var Product = sequelize.define("product", {
     name: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: false,
       allowNull: false,
     },
     value: {
